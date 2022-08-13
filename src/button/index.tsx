@@ -1,8 +1,34 @@
 import { defineComponent, PropType, toRefs } from "vue";
 import "uno.css";
 
+export type IColor =
+  | "black"
+  | "gray"
+  | "red"
+  | "yellow"
+  | "green"
+  | "blue"
+  | "indigo"
+  | "purple"
+  | "pink";
+export const props = {
+  color: {
+    type: String as PropType<IColor>,
+    default: "blue", // 设定默认颜色
+  },
+  icon: {
+    type: String,
+    default: "",
+  },
+  plain: {
+    type: Boolean,
+    default: false,
+  },
+};
+
 export default defineComponent({
-  name: "SMButton",
+  name: "SButton",
+  props,
   setup(props, { slots }) {
     return () => (
       <button
@@ -13,12 +39,19 @@ export default defineComponent({
           rounded-lg
           shadow-md 
           text-white 
-          bg-green-500 
-          hover:bg-green-700 
+          bg-${props.color}-500 
+          hover:bg-${props.color}-700 
+					text-${props.plain ? props.color + "-500" : "white-500"}
           border-none 
           cursor-pointer 
           `}
       >
+        {props.icon !== "" ? (
+          <i class={`i-ic-baseline-${props.icon} p-3`}></i>
+        ) : (
+          ""
+        )}
+
         {slots.default ? slots.default() : ""}
       </button>
     );
