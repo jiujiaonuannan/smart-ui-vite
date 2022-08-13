@@ -1,4 +1,12 @@
-import { createApp } from "vue";
-import JSXButton from "./JSXButton";
+import { createApp } from "vue/dist/vue.esm-browser";
+import SmartUI from "./entry";
 
-createApp(JSXButton).mount("#app");
+createApp({
+  template: `
+			<div>
+					<SMButton>普通按钮</SMButton>
+			</div>
+	`,
+})
+  .use(SmartUI)
+  .mount("#app");
